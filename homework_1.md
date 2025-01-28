@@ -23,8 +23,41 @@ PS: lpep_pickup_datetime and lpep_dropoff_datetime are named tpep_pickup_datetim
 but the script is expecting lpep_pickup_datetime and lpep_dropoff_datetime for homework.
 
 ### Homework 
-#### Homework general
+#### Docker
 
+## Question 1. Understanding docker first run 
+
+Run docker with the `python:3.12.8` image in an interactive mode, use the entrypoint `bash`.
+
+What's the version of `pip` in the image?
+
+Commands run:
+```bash
+# Run the container
+docker run -it --entrypoint=bash python:3.12.8
+
+# Check pip version inside the container
+pip --version
+```
+
+Answer: 23.2.1
+
+## Question 2. Understanding Docker networking and docker-compose
+
+Given the following `docker-compose.yaml`, what is the `hostname` and `port` that **pgadmin** should use to connect to the postgres database?
+
+There are actually two valid options to connect from pgAdmin to PostgreSQL:
+
+db:5432 
+- This works because:
+Docker Compose creates an internal network where containers can refer to each other using their service names
+db is the service name in the compose file
+5432 is the internal port PostgreSQL is listening on inside its container
+
+postgres:5432 
+- This also works because:
+The container_name is set to "postgres"
+Docker Compose's internal DNS will resolve this container name as well
 
 #### Homework SQL
 ```
@@ -86,4 +119,15 @@ GROUP BY zdo."Zone"
 ORDER BY max_tip DESC
 LIMIT 1;
 ```
+# Question 7. Terraform Workflow
+*Downloading provider plugins and setting up backend:*
+- terraform init is the correct command. This initializes a Terraform working directory by downloading required providers and setting up the backend configuration
 
+*Generating proposed changes and auto-executing the plan:*
+- terraform apply -auto-approve is the correct command.This combines generating the execution plan and applying it without requiring manual confirmation
+
+
+*Remove all resources managed by terraform:*
+- terraform destroy is the correct command
+
+1
